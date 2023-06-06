@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-const socket = io("http://localhost:8000");
+import Setting from "./pages/Setting";
+import Home from "./pages/Home";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+
+    children: [
+      { index: true, element: <Home /> },
+      { path: "/setting", element: <Setting /> },
+    ],
+  },
+]);
 
 function App() {
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    socket.on("mqtt-message", (message) => {
-      console.log(message);
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-  }, []);
-
-  return (
-    <div>
-      <h1>MQTT Messages</h1>
-      {messages.map((message, index) => (
-        <p key={index}>{message}</p>
-      ))}
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
