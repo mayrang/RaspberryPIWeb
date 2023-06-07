@@ -18,15 +18,19 @@ export default function Home() {
 
     console.log(message);
     const parseMessage = JSON.parse(message);
-    console.log("test", typeof parseMessage);
+    console.log("test", isUpdateAllowed);
+    if (parseMessage["value"]) {
+      return;
+    }
     if (parseMessage["temperature"] && parseMessage["humidity"]) {
       setHumidity(parseMessage["humidity"]);
       setTemperature(parseMessage["temperature"]);
       if (
-        parseInt(parseMessage["temperature"]) > parseInt(setting["temperatureMin"]) ||
-        parseInt(parseMessage["temperature"]) < parseInt(setting["temperatureMax"])
+        parseInt(parseMessage["temperature"]) < parseInt(setting["temperatureMin"]) ||
+        parseInt(parseMessage["temperature"]) > parseInt(setting["temperatureMax"])
       ) {
         if (isUpdateAllowed) {
+          console.log("allow", isUpdateAllowed);
           setSensorLogs((prev) => [
             ...prev,
             {
@@ -35,18 +39,16 @@ export default function Home() {
               time: new Date().toString(),
             },
           ]);
-
+          socket.emit("send-message", JSON.stringify({ value: "temperature" }));
           // 업데이트가 발생한 후 1분 동안은 업데이트를 허용하지 않음
           isUpdateAllowed = false;
           setTimeout(() => {
             isUpdateAllowed = true;
           }, 60000);
-
-          socket.emit("send-message", JSON.stringify({ value: "temperature" }));
         }
       } else if (
-        parseInt(parseMessage["humidity"]) > parseInt(setting["humidityMin"]) ||
-        parseInt(parseMessage["humidity"]) < parseInt(setting["humidityMax"])
+        parseInt(parseMessage["humidity"]) < parseInt(setting["humidityMin"]) ||
+        parseInt(parseMessage["humidity"]) > parseInt(setting["humidityMax"])
       ) {
         if (isUpdateAllowed) {
           setSensorLogs((prev) => [
@@ -57,14 +59,12 @@ export default function Home() {
               time: new Date().toString(),
             },
           ]);
-
+          socket.emit("send-message", JSON.stringify({ value: "humidity" }));
           // 업데이트가 발생한 후 1분 동안은 업데이트를 허용하지 않음
           isUpdateAllowed = false;
           setTimeout(() => {
             isUpdateAllowed = true;
           }, 60000);
-
-          socket.emit("send-message", JSON.stringify({ value: "humidity" }));
         }
       }
     } else {

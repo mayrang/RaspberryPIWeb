@@ -20,7 +20,7 @@ app.use(
 );
 // MQTT 라이브러리 및 브로커 설정
 const mqtt = require("mqtt");
-const brokerUrl = "mqtt://172.17.22.17:1883";
+const brokerUrl = "mqtt://192.168.200.151:1883";
 const topic = "mobile/mayrang/sensing"; // 구독할 MQTT 토픽
 
 // MQTT 클라이언트 생성

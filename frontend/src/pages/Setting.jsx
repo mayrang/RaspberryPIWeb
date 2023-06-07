@@ -4,13 +4,16 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:8000");
 export default function Setting() {
-  const [temperatureMin, setTemperatureMin] = useState(0);
-  const [temperatureMax, setTemperatureMax] = useState(0);
-  const [humidityMin, setHumidityMin] = useState(0);
-  const [humidityMax, setHumidityMax] = useState(0);
+  const setting = localStorage.getItem("setting") ? JSON.parse(localStorage.getItem("setting")) : null;
+  const [temperatureMin, setTemperatureMin] = useState(setting ? setting.temperatureMin : 0);
+
+  const [temperatureMax, setTemperatureMax] = useState(setting ? setting.temperatureMax : 0);
+  const [humidityMin, setHumidityMin] = useState(setting ? setting.humidityMin : 0);
+  const [humidityMax, setHumidityMax] = useState(setting ? setting.humidityMax : 0);
   const [temperatureAlarm, setTemperatureAlarm] = useState("");
   const [humidityAlarm, setHumidityAlarm] = useState("");
   const navigate = useNavigate();
+
   const handleSaveSettings = () => {
     if (isNaN(temperatureMin) || isNaN(temperatureMax) || isNaN(humidityMin) || isNaN(humidityMax)) {
       alert("온습도에는 숫자만 입력할 수 있습니다.");
@@ -21,6 +24,8 @@ export default function Setting() {
     } else if (parseInt(humidityMin) > parseInt(humidityMax) || humidityMin < 0 || humidityMax > 100) {
       alert("습도 범위가 올바르지 않습니다.");
       return;
+    } else if (temperatureAlarm.trim() === "" || humidityAlarm.trim() === "") {
+      alert("온습도 알림음을 설정해 주세요");
     }
     localStorage.setItem("setting", JSON.stringify({ temperatureMin, temperatureMax, humidityMax, humidityMin }));
     socket.emit("send-message", JSON.stringify({ temperatureAlarm, humidityAlarm }));
@@ -78,9 +83,8 @@ export default function Setting() {
               onChange={(e) => setTemperatureAlarm(e.target.value)}
             >
               <option value="">없음</option>
-              <option value="alarm1">알림음 1</option>
-              <option value="alarm2">알림음 2</option>
-              <option value="alarm3">알림음 3</option>
+              <option value="1">학교종</option>
+              <option value="2">작은별</option>
             </select>
           </div>
           <div className="flex items-center">
@@ -91,9 +95,8 @@ export default function Setting() {
               onChange={(e) => setHumidityAlarm(e.target.value)}
             >
               <option value="">없음</option>
-              <option value="alarm1">알림음 1</option>
-              <option value="alarm2">알림음 2</option>
-              <option value="alarm3">알림음 3</option>
+              <option value="1">학교종</option>
+              <option value="2">작은별</option>
             </select>
           </div>
           <button
