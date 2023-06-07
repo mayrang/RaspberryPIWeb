@@ -16,13 +16,14 @@
 ## 완성 작품
 
 ### 작품 회로도
-![image](https://github.com/mayrang/RaspberryPIWeb/assets/68384104/10763a11-2a97-49d2-8447-d8a971a91f8c)
+![image](https://github.com/mayrang/RaspberryPIWeb/assets/68384104/52fbfa9f-26bb-4326-8a66-3231bfe8329e)
 
 
 
 
 ### 작품 사진
-![image](https://github.com/mayrang/RaspberryPIWeb/assets/68384104/52fbfa9f-26bb-4326-8a66-3231bfe8329e)
+
+![image](https://github.com/mayrang/RaspberryPIWeb/assets/68384104/10763a11-2a97-49d2-8447-d8a971a91f8c)
 ![image](https://github.com/mayrang/RaspberryPIWeb/assets/68384104/288815f8-1759-4387-9ea5-174d47644b03)
 ![image](https://github.com/mayrang/RaspberryPIWeb/assets/68384104/1c2dc1ba-ac98-4339-8d80-df6068e70fb8)
 
