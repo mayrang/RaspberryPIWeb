@@ -18,7 +18,8 @@ GPIO.setmode(GPIO.BCM)
 LED1 = 23
 
 LED2 = 24
-GPIO.setup(LED, GPIO.OUT)
+GPIO.setup(LED1, GPIO.OUT)
+GPIO.setup(LED2, GPIO.OUT)
 gpio_pin = 12
 GPIO.setup(gpio_pin, GPIO.OUT)
 
