@@ -1,13 +1,11 @@
-import { parse } from "postcss";
 import React, { useState, useEffect } from "react";
-
+import dayjs from "dayjs";
 import io from "socket.io-client";
 
 const socket = io("http://localhost:8000");
 let isUpdateAllowed = true; // 업데이트 허용 여부를 나타내는 변수
-let lastUpdateTimestamp = new Date().getTime();
+//let lastUpdateTimestamp = new Date().getTime();
 export default function Home() {
-  const [messages, setMessages] = useState([]);
   const [temperature, setTemperature] = useState(0);
   const [humidity, setHumidity] = useState(0);
   const [sensorLogs, setSensorLogs] = useState([]);
@@ -117,7 +115,7 @@ export default function Home() {
             </div>
           </div>
           <div className="bg-white shadow-md rounded-md p-6 overflow-scroll h-[600px]">
-            <h2 className="text-xl font-medium mb-4">이상 온습도 로그</h2>
+            <h2 className="text-xl font-semibold mb-4">이상 온습도 기록</h2>
             <table className="w-full table-auto ">
               <thead>
                 <tr>
@@ -131,7 +129,7 @@ export default function Home() {
                   <tr key={index}>
                     <td className="border px-3 py-2">{log.temperature}°C</td>
                     <td className="border px-3 py-2">{log.humidity}%</td>
-                    <td className="border px-4 py-2">{log.time}</td>
+                    <td className="border px-4 py-2">{dayjs(log.time).format("YYYY-MM-DD HH:mm")}</td>
                   </tr>
                 ))}
               </tbody>
