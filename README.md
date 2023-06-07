@@ -16,8 +16,14 @@
 ## 완성 작품
 
 ### 작품 회로도
+![image](https://github.com/mayrang/RaspberryPIWeb/assets/68384104/52fbfa9f-26bb-4326-8a66-3231bfe8329e)
+![image](https://github.com/mayrang/RaspberryPIWeb/assets/68384104/288815f8-1759-4387-9ea5-174d47644b03)
+
+
 
 ### 작품 사진
+![image](https://github.com/mayrang/RaspberryPIWeb/assets/68384104/10763a11-2a97-49d2-8447-d8a971a91f8c)
+
 
 ## 동작 시나리오 및 예시
 1. 실시간으로 온습도 데이터를 측정해서 MQTT 통신을 통해 웹에 전송
